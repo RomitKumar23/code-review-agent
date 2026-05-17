@@ -1,0 +1,4 @@
+.env
+.reviewAgent/
+__pycache__/
+*.pyc
