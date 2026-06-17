@@ -1,0 +1,10 @@
+.env
+.venv/
+.reviewAgent/
+__pycache__/
+*.pyc
+*.pyo
+node_modules/
+dist/
+.DS_Store
+api/core/config.py
