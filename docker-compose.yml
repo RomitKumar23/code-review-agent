@@ -16,7 +16,9 @@ services:
       redis:
         condition: service_started
     volumes:
-      - ./api:/app   # hot-reload in dev
+      - ./api:/app # hot-reload in dev
+      - ./alembic.ini:/app/alembic.ini
+      - ./alembic:/app/alembic 
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
   worker:

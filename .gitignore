@@ -5,6 +5,7 @@ __pycache__/
 *.pyc
 *.pyo
 node_modules/
+codeReviewAgent/
 dist/
 .DS_Store
 api/core/config.py

@@ -3,12 +3,30 @@ from sqlalchemy import engine_from_config, pool
 from alembic import context
 import sys, os
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "api"))
+_HERE = os.path.dirname(os.path.abspath(__file__))
+
+_candidates = [
+    os.path.join(_HERE, "..", "api"),   # local layout
+    os.path.join(_HERE, ".."),          # Docker layout (api/ contents flattened into /app)
+]
+for _path in _candidates:
+    if os.path.isdir(os.path.join(_path, "models")):
+        sys.path.insert(0, _path)
+        break
+
 from models.review import Base
 
 config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
+
+try:
+    from core.config import get_settings
+    _db_url = get_settings().database_url
+    _sync_url = _db_url.replace("+asyncpg", "")
+    config.set_main_option("sqlalchemy.url", _sync_url)
+except Exception:
+    pass
 
 target_metadata = Base.metadata
 
