@@ -75,13 +75,7 @@ def process_pr_review(
     pr_title: str,
     diff_url: str,     # kept for future use / webhook replay
 ):
-    """
-    Orchestrates the full review pipeline for one PR.
 
-    bind=True: gives access to `self` for retry control and task ID.
-    autoretry_for=(Exception,): retries on any error up to max_retries.
-    retry_backoff=True: doubles the wait between each retry.
-    """
     task_id = self.request.id
     logger.info("task.started", task_id=task_id, repo=repo, pr=pr_number)
 

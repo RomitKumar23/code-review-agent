@@ -26,11 +26,6 @@ class ReviewResult:
     tokens_used: int
 
 class BaseLLMProvider(ABC):
-    """
-    Every LLM provider must implement this contract.
-    The worker only ever calls .review() — it never imports
-    OpenAI or Anthropic directly.
-    """
     @abstractmethod
     async def review(self, diff: str, ctx: ReviewContext) -> ReviewResult:
         ...
